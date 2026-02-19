@@ -10,10 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- FULLCALENDAR (Ligero para móvil) -->
+    <!-- FULLCALENDAR -->
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css' rel='stylesheet' />
     
-    <!-- FONT AWESOME (Iconos) -->
+    <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
@@ -22,7 +22,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* Elimina el flash al tocar en móvil */
+            -webkit-tap-highlight-color: transparent;
         }
         
         :root {
@@ -43,12 +43,11 @@
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             color: var(--dark);
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
             overflow-x: hidden;
             width: 100%;
         }
 
-        /* ===== NAVBAR MÓVIL ===== */
+        /* ===== NAVBAR ===== */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -63,14 +62,12 @@
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid rgba(15, 59, 44, 0.1);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: 800;
             color: var(--primary);
-            white-space: nowrap;
         }
         .logo span { color: #e6535e; }
 
@@ -86,7 +83,6 @@
             color: var(--dark);
             font-weight: 600;
             font-size: 0.9rem;
-            transition: color 0.2s;
             padding: 0.5rem;
         }
 
@@ -99,7 +95,7 @@
             white-space: nowrap;
         }
 
-        /* ===== HERO MÓVIL ===== */
+        /* ===== HERO ===== */
         .landing { padding-top: 70px; }
         
         .hero {
@@ -128,7 +124,7 @@
             margin-right: auto;
         }
 
-        /* ===== BOTONES MÓVIL ===== */
+        /* ===== BOTONES ===== */
         .btn {
             display: inline-block;
             padding: 0.8rem 1.5rem;
@@ -140,7 +136,6 @@
             transition: all 0.3s;
             font-size: clamp(0.9rem, 4vw, 1rem);
             margin: 0.25rem;
-            -webkit-touch-callout: none;
         }
         
         .btn-primary {
@@ -149,9 +144,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
         
-        .btn-primary:active {
-            transform: scale(0.98);
-        }
+        .btn-primary:active { transform: scale(0.98); }
         
         .btn-outline {
             border: 2px solid white;
@@ -159,11 +152,9 @@
             background: transparent;
         }
         
-        .btn-outline:active {
-            background: rgba(255,255,255,0.2);
-        }
+        .btn-outline:active { background: rgba(255,255,255,0.2); }
 
-        /* ===== SECCIONES MÓVIL ===== */
+        /* ===== TRANSPARENCIA ===== */
         .transparency-section {
             padding: 3rem 1rem;
             background: white;
@@ -177,7 +168,6 @@
             line-height: 1.3;
         }
 
-        /* ===== GRIDS MÓVIL ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -211,7 +201,6 @@
         .stat-number.red { color: var(--danger); }
         .stat-number.green { color: var(--success); }
 
-        /* ===== TABLA RESPONSIVE ===== */
         .debtors-table {
             background: white;
             border-radius: 20px;
@@ -226,7 +215,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 600px; /* Permite scroll horizontal en móviles pequeños */
+            min-width: 600px;
         }
         
         th {
@@ -256,7 +245,7 @@
         .badge.warning { background: #fef3c7; color: #92400e; }
         .badge.success { background: #dcfce7; color: var(--success); }
 
-        /* ===== LOGIN CARD MÓVIL ===== */
+        /* ===== LOGIN ===== */
         .login-section {
             padding: 3rem 1rem;
             background: #f1f5f9;
@@ -299,7 +288,7 @@
             padding-right: 2.5rem;
         }
 
-        /* ===== DASHBOARD MÓVIL ===== */
+        /* ===== DASHBOARD ===== */
         .dashboard {
             min-height: 100vh;
             background: #f1f5f9;
@@ -336,11 +325,8 @@
             width: fit-content;
         }
         
-        .btn-logout:active {
-            background: #f1f5f9;
-        }
+        .btn-logout:active { background: #f1f5f9; }
 
-        /* ===== CARDS RESPONSIVE ===== */
         .summary-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -372,7 +358,6 @@
             margin-bottom: 0.25rem;
         }
 
-        /* ===== GRID DASHBOARD MÓVIL ===== */
         .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -392,7 +377,6 @@
             overflow: hidden;
         }
 
-        /* ===== INFO PRIVADA MÓVIL ===== */
         .resident-private-info {
             background: white;
             border-radius: 16px;
@@ -423,7 +407,6 @@
             font-size: 0.9rem;
         }
 
-        /* ===== LOADING MÓVIL ===== */
         .loading {
             text-align: center;
             padding: 2rem 1rem;
@@ -443,7 +426,7 @@
 
         .hidden { display: none !important; }
 
-        /* ===== AJUSTES FULLCALENDAR MÓVIL ===== */
+        /* ===== FULLCALENDAR MÓVIL ===== */
         .fc {
             font-size: 0.8rem !important;
         }
@@ -456,12 +439,7 @@
             padding: 0.3rem 0.6rem !important;
             font-size: 0.8rem !important;
         }
-        
-        .fc-daygrid-day-number {
-            font-size: 0.8rem !important;
-        }
 
-        /* ===== FOOTER MÓVIL ===== */
         footer {
             background: var(--primary);
             color: white;
@@ -473,7 +451,7 @@
 </head>
 <body>
 
-    <!-- NAVBAR MÓVIL -->
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="logo">🌹 Las <span>Rosas</span></div>
         <div class="nav-links">
@@ -496,7 +474,7 @@
             </div>
         </section>
 
-        <!-- TRANSPARENCIA (DATOS EN TIEMPO REAL) -->
+        <!-- TRANSPARENCIA -->
         <section id="transparencia" class="transparency-section">
             <h2 class="section-title">Transparencia Financiera</h2>
             <p style="text-align: center; max-width: 600px; margin: 0 auto 2rem; color: var(--gray); font-size: 0.95rem; padding: 0 1rem;">
@@ -648,8 +626,8 @@
         // CONFIGURACIÓN - API DE APPS SCRIPT
         // ============================================
         
-        // 🔴 TU URL DE APPS SCRIPT (funciona en tiempo real)
-        const API_URL = 'https://script.google.com/macros/s/AKfycbwHXUSQ7xgsTutDswAB8ne-iPxAK69IE-7RcbNto8RqnYW9RUv2dXLSLvjmqN14zkJp/exec';
+        // 🔴 TU URL DE APPS SCRIPT (YA ESTÁ INCLUIDA)
+        const API_URL = 'https://script.google.com/macros/s/AKfycbyOLXw0_yY5Y-z9NHEcZnxCfmDCIQPDtCjyfQafsy7_aFZRC_QwyEfrlv39i7Asyki0/exec';
         const MONTO_MENSUAL = 3;
         
         // Base de datos en memoria
@@ -668,7 +646,7 @@
                 document.getElementById('transparencyLoading').style.display = 'block';
                 document.getElementById('transparencyContent').style.display = 'none';
                 
-                // Llamada directa a la API (sin proxy)
+                // Llamada directa a la API
                 const response = await fetch(API_URL);
                 
                 if (!response.ok) {
@@ -680,6 +658,12 @@
                 
                 // Convertir array a objeto para acceso rápido
                 residentesDB = {};
+                
+                // Si hay error en la respuesta
+                if (datos.error) {
+                    throw new Error(datos.error);
+                }
+                
                 datos.forEach(item => {
                     if (item.apartamento) {
                         // Procesar pagos
@@ -719,7 +703,8 @@
                 document.getElementById('transparencyLoading').innerHTML = `
                     <div style="color: var(--danger); padding: 1rem;">
                         <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-                        <p>Error al cargar datos</p>
+                        <p>Error al cargar datos: ${error.message}</p>
+                        <p style="font-size: 0.8rem; margin: 1rem 0;">Verifica que tu Google Sheets tenga los encabezados correctos y que la API esté implementada como "Aplicación web"</p>
                         <button onclick="cargarDatosAPI()" class="btn btn-primary" style="margin-top: 1rem; padding: 0.5rem 1rem;">
                             <i class="fas fa-sync-alt"></i> Reintentar
                         </button>
@@ -788,7 +773,7 @@
             
             const tbody = document.getElementById('debtorsTableBody');
             if (todosLosAptos.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">Sin datos</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">No hay apartamentos registrados en Google Sheets</td></tr>`;
             } else {
                 tbody.innerHTML = todosLosAptos.map(a => `
                     <tr>
@@ -843,7 +828,7 @@
             const aptoKey = `${torre}-${nivel}-${numero}`;
             
             if (!residentesDB[aptoKey]) {
-                alert(`❌ El apto ${aptoKey} no existe`);
+                alert(`❌ El apto ${aptoKey} no existe en Google Sheets`);
                 return;
             }
 
@@ -946,7 +931,7 @@
         // ============================================
         
         window.addEventListener('load', () => {
-            cargarDatosAPI(); // Carga inicial
+            cargarDatosAPI();
             populateNiveles();
             populateApartamentos();
             
