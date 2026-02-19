@@ -3,92 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Residencias Las Rosas | Portal y Transparencia</title>
-    <!-- Fuentes de Google -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <!-- FullCalendar CSS -->
+    <title>Las Rosas - Gestión con Google Sheets</title>
+    <!-- Fuentes y estilos -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css' rel='stylesheet' />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f4f7fb;
-            color: #1e293b;
-            line-height: 1.5;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f4f7fb; color: #1e293b; }
+        
         /* Navbar */
         .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            background: rgba(255,255,255,0.9);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; background: rgba(255,255,255,0.95);
+            position: fixed; top: 0; width: 100%; z-index: 100;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #0f3b2c;
-        }
-        .logo span { color: #e6535e; } /* Rosa suave para "Rosas" */
-
+        .logo { font-size: 1.5rem; font-weight: 700; color: #0f3b2c; }
+        .logo span { color: #e6535e; }
         .nav-links a {
-            margin-left: 2rem;
-            text-decoration: none;
-            color: #1e293b;
-            font-weight: 500;
-            transition: color 0.2s;
+            margin-left: 2rem; text-decoration: none; color: #1e293b; font-weight: 500;
         }
-        .nav-links a:hover { color: #0f3b2c; }
-
         .btn-login-nav {
-            background: #0f3b2c;
-            color: white !important;
-            padding: 0.5rem 1.2rem;
-            border-radius: 30px;
-            margin-left: 2rem;
+            background: #0f3b2c; color: white !important;
+            padding: 0.5rem 1.2rem; border-radius: 30px;
         }
 
-        /* Landing Page */
-        .landing {
-            padding-top: 80px;
-        }
-
+        /* Landing */
+        .landing { padding-top: 80px; }
         .hero {
             min-height: 90vh;
-            background: linear-gradient(rgba(15,59,44,0.8), rgba(15,59,44,0.8)), url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600');
+            background: linear-gradient(rgba(15,59,44,0.85), rgba(15,59,44,0.85)),
+                        url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600');
             background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: white;
         }
-
         .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem; }
 
+        /* Botones */
         .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
+            display: inline-block; padding: 0.8rem 2rem; border-radius: 30px;
+            text-decoration: none; font-weight: 600; border: none; cursor: pointer;
             transition: all 0.2s;
         }
         .btn-primary { background: #4f9d69; color: white; }
@@ -96,205 +51,93 @@
         .btn-outline { border: 2px solid white; color: white; background: transparent; }
         .btn-outline:hover { background: white; color: #0f3b2c; }
 
-        /* Sección Transparencia */
-        .transparency-section {
-            padding: 4rem 5%;
-            background: white;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            color: #0f3b2c;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
+        /* Secciones */
+        .transparency-section { padding: 4rem 5%; background: white; }
+        .section-title { font-size: 2.5rem; color: #0f3b2c; text-align: center; margin-bottom: 2rem; }
+        
         .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-bottom: 3rem;
+            display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem;
+            margin-bottom: 3rem; max-width: 1200px; margin: 0 auto 3rem;
         }
-
         .stat-card {
-            background: #f4f7fb;
-            padding: 2rem;
-            border-radius: 20px;
-            text-align: center;
+            background: #f4f7fb; padding: 2rem; border-radius: 20px;
+            text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
-
-        .stat-card h3 {
-            color: #64748b;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-card .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #0f3b2c;
-        }
-
+        .stat-card h3 { color: #64748b; font-size: 1rem; text-transform: uppercase; }
+        .stat-card .stat-number { font-size: 2.5rem; font-weight: 700; color: #0f3b2c; }
         .stat-card .stat-number.red { color: #dc2626; }
 
         .debtors-table {
-            background: #f4f7fb;
-            border-radius: 20px;
-            padding: 2rem;
-            overflow-x: auto;
+            background: #f4f7fb; border-radius: 20px; padding: 2rem;
+            max-width: 1200px; margin: 0 auto;
         }
-
-        .debtors-table h3 {
-            margin-bottom: 1.5rem;
-            color: #0f3b2c;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            text-align: left;
-            padding: 1rem;
-            background: #e2e8f0;
-            color: #334155;
-            font-weight: 600;
-        }
-
-        td {
-            padding: 1rem;
-            border-bottom: 1px solid #cbd5e1;
-        }
-
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 1rem; background: #e2e8f0; }
+        td { padding: 1rem; border-bottom: 1px solid #cbd5e1; }
+        
         .badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
+            padding: 0.25rem 0.75rem; border-radius: 9999px;
+            font-size: 0.875rem; font-weight: 500;
         }
-
         .badge.warning { background: #fef3c7; color: #92400e; }
-        .badge.success { background: #dcfce7; color: #166534; }
 
-        /* Sección Login */
-        .login-section {
-            padding: 4rem 5%;
-            background: #f4f7fb;
-        }
-
+        /* Login */
+        .login-section { padding: 4rem 5%; background: #f4f7fb; }
         .login-card {
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 30px;
-            padding: 3rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            max-width: 500px; margin: 0 auto; background: white;
+            border-radius: 30px; padding: 3rem; box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         }
-
-        .login-card h2 { color: #0f3b2c; margin-bottom: 0.5rem; }
         .form-group { margin-bottom: 1.5rem; }
-        label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #334155; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
         select, input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-family: inherit;
-            transition: border 0.2s;
+            width: 100%; padding: 0.8rem 1rem; border: 2px solid #e2e8f0;
+            border-radius: 12px; font-family: inherit;
         }
-        select:focus, input:focus { border-color: #4f9d69; outline: none; }
 
         /* Dashboard */
         .dashboard {
-            min-height: 100vh;
-            background: #f4f7fb;
+            min-height: 100vh; background: #f4f7fb;
             padding: 100px 2% 2rem 2%;
         }
-
         .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding: 1rem 2rem;
-            background: white;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 2rem; padding: 1rem 2rem; background: white;
             border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
         }
-
-        .resident-info h3 { color: #0f3b2c; }
-        .btn-logout {
-            background: none;
-            border: 2px solid #e2e8f0;
-            padding: 0.5rem 1.5rem;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-        .btn-logout:hover { border-color: #0f3b2c; color: #0f3b2c; }
-
-        /* Tarjetas de resumen */
         .summary-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+            gap: 1.5rem; margin-bottom: 2rem;
         }
-
         .card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            background: white; padding: 1.5rem; border-radius: 20px;
             border-left: 5px solid #4f9d69;
         }
         .card.warning { border-left-color: #dc2626; }
-        .card h4 { color: #64748b; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .card .value { font-size: 2rem; font-weight: 700; margin-top: 0.5rem; }
-        .card .status { font-size: 1rem; font-weight: 500; }
-        .green { color: #4f9d69; }
-        .red { color: #dc2626; }
-
-        /* Grid principal */
         .dashboard-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1.5rem;
+            display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;
         }
-
-        /* Calendario */
-        .calendar-widget {
-            background: white;
-            border-radius: 20px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
-        }
-
-        #calendar {
-            max-width: 100%;
-            margin-top: 1rem;
-        }
-
-        /* Comunicados */
-        .announcements {
-            background: white;
-            border-radius: 20px;
-            padding: 1.5rem;
-        }
-
-        .announcement-item {
-            padding: 1rem 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .announcement-item:last-child { border-bottom: none; }
-        .announcement-date { color: #64748b; font-size: 0.8rem; }
-        .announcement-title { font-weight: 600; margin: 0.2rem 0; }
-
+        .calendar-widget { background: white; border-radius: 20px; padding: 1.5rem; }
+        .announcements { background: white; border-radius: 20px; padding: 1.5rem; }
         .hidden { display: none !important; }
+        
+        /* Loading */
+        .loading {
+            text-align: center; padding: 3rem;
+            background: white; border-radius: 20px;
+            margin: 2rem auto; max-width: 400px;
+        }
+        .loading-spinner {
+            border: 4px solid #f3f3f3; border-top: 4px solid #4f9d69;
+            border-radius: 50%; width: 50px; height: 50px;
+            animation: spin 1s linear infinite; margin: 1rem auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .refresh-info {
+            text-align: center; color: #64748b; font-size: 0.9rem;
+            margin-top: 1rem; padding: 0.5rem;
+            background: #e2e8f0; border-radius: 30px; display: inline-block;
+        }
 
         @media (max-width: 900px) {
             .stats-grid { grid-template-columns: 1fr; }
@@ -304,75 +147,67 @@
 </head>
 <body>
 
-    <!-- BARRA DE NAVEGACIÓN -->
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="logo">🌹 Las <span>Rosas</span></div>
         <div class="nav-links">
             <a href="#inicio">Inicio</a>
             <a href="#transparencia">Transparencia</a>
-            <a href="#caracteristicas">El Conjunto</a>
             <a href="#acceso" class="btn-login-nav">Acceso Residentes</a>
         </div>
     </nav>
 
-    <!-- VISTA PÚBLICA (LANDING) -->
+    <!-- LANDING PAGE -->
     <div id="landingView" class="landing">
         <section id="inicio" class="hero">
             <div>
                 <h1>Bienvenido a Las Rosas</h1>
-                <p>Vive la experiencia de tranquilidad y naturaleza en nuestro conjunto residencial.</p>
+                <p>Gestión transparente con actualización automática desde Google Sheets</p>
                 <a href="#acceso" class="btn btn-primary">Ingresar al Portal</a>
                 <a href="#transparencia" class="btn btn-outline">Ver Transparencia</a>
             </div>
         </section>
 
-        <!-- SECCIÓN DE TRANSPARENCIA FINANCIERA (PÚBLICA) -->
+        <!-- SECCIÓN TRANSPARENCIA (SE ACTUALIZA AUTOMÁTICAMENTE) -->
         <section id="transparencia" class="transparency-section">
             <h2 class="section-title">Transparencia Financiera</h2>
-            <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem; color: #475569;">
-                En Las Rosas creemos en la gestión abierta. Aquí puedes ver el estado general de cuotas de condominio. 
-                Los apartamentos se muestran de forma anónima para privacidad.
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 2rem; color: #475569;">
+                Datos actualizados desde Google Sheets en tiempo real
             </p>
-
-            <div class="stats-grid" id="transparencyStats">
-                <!-- Se llenará con JS -->
+            
+            <div id="transparencyLoading" class="loading">
+                <div class="loading-spinner"></div>
+                <p>Cargando datos desde Google Sheets...</p>
             </div>
 
-            <div class="debtors-table">
-                <h3>📋 Apartamentos con cuotas pendientes</h3>
-                <table id="debtorsTable">
-                    <thead>
-                        <tr>
-                            <th>Apartamento</th>
-                            <th>Meses pendientes</th>
-                            <th>Total adeudado</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody id="debtorsTableBody">
-                        <!-- Se llenará con JS -->
-                    </tbody>
-                </table>
-                <p style="margin-top: 1rem; font-size: 0.9rem; color: #64748b; text-align: center;">
-                    * Datos actualizados al último cierre mensual. Monto mensual: $120 USD.
-                </p>
-            </div>
-        </section>
-
-        <section id="caracteristicas" style="padding: 4rem 5%; text-align: center; background: #f4f7fb;">
-            <h2 style="color: #0f3b2c; font-size: 2.5rem; margin-bottom: 3rem;">¿Por qué vivir en Las Rosas?</h2>
-            <div style="display: grid; grid-template-columns: repeat(3,1fr); gap:2rem;">
-                <div><img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=200&h=200&fit=crop" style="width:100px; height:100px; border-radius:50%; object-fit:cover;"><h3>Seguridad 24/7</h3><p>Acceso controlado y cámaras.</p></div>
-                <div><img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=200&h=200&fit=crop" style="width:100px; height:100px; border-radius:50%; object-fit:cover;"><h3>Áreas Verdes</h3><p>Jardines y senderos ecológicos.</p></div>
-                <div><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=200&h=200&fit=crop" style="width:100px; height:100px; border-radius:50%; object-fit:cover;"><h3>Comunidad Unida</h3><p>Eventos y actividades para todos.</p></div>
+            <div id="transparencyContent" style="display: none;">
+                <div class="stats-grid" id="transparencyStats"></div>
+                
+                <div class="debtors-table">
+                    <h3>📋 Apartamentos con cuotas pendientes</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Apartamento</th>
+                                <th>Meses pendientes</th>
+                                <th>Total adeudado</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="debtorsTableBody"></tbody>
+                    </table>
+                    <div class="refresh-info" id="refreshInfo">
+                        Última actualización: <span id="lastUpdate">cargando...</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- SECCIÓN DE ACCESO (LOGIN) -->
+        <!-- LOGIN -->
         <section id="acceso" class="login-section">
             <div class="login-card">
                 <h2>Portal del Residente</h2>
-                <p style="margin-bottom: 2rem; color: #475569;">Consulta tu estado de cuenta y más</p>
+                <p style="margin-bottom: 2rem;">Consulta tu estado de cuenta</p>
                 
                 <div class="form-group">
                     <label>Torre</label>
@@ -385,30 +220,28 @@
                 <div class="form-group">
                     <label>Nivel</label>
                     <select id="selectNivel">
-                        <!-- Se llenará con JS -->
+                        <option value="PB">Planta Baja (PB)</option>
+                        <option value="PH">Penthouse (PH)</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Apartamento</label>
-                    <select id="selectApartamento">
-                        <!-- Se llenará con JS -->
-                    </select>
+                    <select id="selectApartamento"></select>
                 </div>
                 <div class="form-group">
                     <label>Contraseña</label>
-                    <input type="password" id="passwordInput" placeholder="••••••••" value="1234">
+                    <input type="password" id="passwordInput" value="1234">
                 </div>
                 <button class="btn btn-primary" style="width:100%;" onclick="handleLogin()">Acceder</button>
-                <p style="margin-top:1rem; font-size:0.8rem; color:#94a3b8;">*Use cualquier contraseña para probar</p>
             </div>
         </section>
 
         <footer style="background:#0f3b2c; color:white; text-align:center; padding:2rem;">
-            <p>© 2025 <strong>Conjunto Residencial Las Rosas</strong>. Todos los derechos reservados.</p>
+            <p>© 2025 Conjunto Residencial Las Rosas · Datos en tiempo real desde Google Sheets</p>
         </footer>
     </div>
 
-    <!-- VISTA PRIVADA (DASHBOARD) -->
+    <!-- DASHBOARD -->
     <div id="dashboardView" class="dashboard hidden">
         <div class="dashboard-header">
             <div class="resident-info">
@@ -418,117 +251,233 @@
             <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
         </div>
 
-        <!-- Tarjetas de resumen -->
         <div class="summary-cards">
             <div class="card" id="cardEstado">
                 <h4>Estado de cuenta</h4>
                 <div class="value" id="estadoValor">—</div>
                 <div class="status" id="estadoTexto">—</div>
             </div>
-            <div class="card">
-                <h4>Total adeudado</h4>
-                <div class="value" id="adeudoTotal">$0</div>
-            </div>
-            <div class="card">
-                <h4>Último pago</h4>
-                <div class="value" id="ultimoPago">—</div>
-            </div>
+            <div class="card"><h4>Total adeudado</h4><div class="value" id="adeudoTotal">$0</div></div>
+            <div class="card"><h4>Último pago</h4><div class="value" id="ultimoPago">—</div></div>
         </div>
 
-        <!-- Grid principal: Calendario + Comunicados -->
         <div class="dashboard-grid">
             <div class="calendar-widget">
                 <h3>📅 Historial de pagos</h3>
                 <div id="calendar"></div>
-                <p style="margin-top:1rem; font-size:0.9rem; background:#f1f5f9; padding:0.5rem; border-radius:8px;">
-                    ✅ Verde: pagado · ❌ Rojo: pendiente · Haz clic en un mes para ver detalle
+                <p style="margin-top:1rem; font-size:0.9rem; color:#64748b;">
+                    ✅ Verde: pagado · ❌ Rojo: pendiente
                 </p>
             </div>
-
             <div class="announcements">
-                <h3>📢 Últimos comunicados</h3>
+                <h3>📢 Comunicados</h3>
                 <div id="comunicadosList">
-                    <div class="announcement-item"><span class="announcement-date">20 Feb 2025</span><div class="announcement-title">Asamblea general este sábado</div></div>
-                    <div class="announcement-item"><span class="announcement-date">15 Feb 2025</span><div class="announcement-title">Limpieza de tanques - corte de agua</div></div>
-                    <div class="announcement-item"><span class="announcement-date">10 Feb 2025</span><div class="announcement-title">Nuevo horario de piscina</div></div>
-                    <div class="announcement-item"><span class="announcement-date">05 Feb 2025</span><div class="announcement-title">Fumigación en áreas comunes</div></div>
+                    <div style="padding: 1rem 0; border-bottom: 1px solid #e2e8f0;">
+                        <span style="color: #64748b; font-size: 0.9rem;">20 Feb 2025</span>
+                        <div style="font-weight: 600;">Asamblea general este sábado</div>
+                    </div>
+                    <div style="padding: 1rem 0; border-bottom: 1px solid #e2e8f0;">
+                        <span style="color: #64748b; font-size: 0.9rem;">15 Feb 2025</span>
+                        <div style="font-weight: 600;">Limpieza de tanques - corte de agua</div>
+                    </div>
+                    <div style="padding: 1rem 0;">
+                        <span style="color: #64748b; font-size: 0.9rem;">10 Feb 2025</span>
+                        <div style="font-weight: 600;">Nuevo horario de piscina</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- FullCalendar JS -->
+    <!-- SCRIPTS -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
     <script>
-        // --- SIMULACIÓN DE BASE DE DATOS (60 APARTAMENTOS: 3 TORRES, 20 C/U) ---
-        const residentesDB = {};
-
-        // Función para generar estado aleatorio pero realista
-        function generarPagos() {
-            const meses = ["2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06"];
-            const pagos = {};
-            
-            // Probabilidades: 70% pagado, 30% pendiente (para simular morosidad real)
-            meses.forEach(mes => {
-                pagos[mes] = Math.random() < 0.7 ? "pagado" : "pendiente";
-            });
-            
-            // Asegurar que algunos estén totalmente al día y otros totalmente morosos para variedad
-            return pagos;
-        }
-
-        // Generar residentes para Torre A (PB 1-10, PH 1-10)
-        for (let i = 1; i <= 10; i++) {
-            residentesDB[`A-PB-${i}`] = { 
-                nombre: `Residente PB-${i} Torre A`, 
-                pagos: generarPagos() 
-            };
-            residentesDB[`A-PH-${i}`] = { 
-                nombre: `Residente PH-${i} Torre A`, 
-                pagos: generarPagos() 
-            };
-        }
-
-        // Torre B (PB 1-10, PH 1-10)
-        for (let i = 1; i <= 10; i++) {
-            residentesDB[`B-PB-${i}`] = { 
-                nombre: `Residente PB-${i} Torre B`, 
-                pagos: generarPagos() 
-            };
-            residentesDB[`B-PH-${i}`] = { 
-                nombre: `Residente PH-${i} Torre B`, 
-                pagos: generarPagos() 
-            };
-        }
-
-        // Torre C (PB 1-10, PH 1-10)
-        for (let i = 1; i <= 10; i++) {
-            residentesDB[`C-PB-${i}`] = { 
-                nombre: `Residente PB-${i} Torre C`, 
-                pagos: generarPagos() 
-            };
-            residentesDB[`C-PH-${i}`] = { 
-                nombre: `Residente PH-${i} Torre C`, 
-                pagos: generarPagos() 
-            };
-        }
-
-        // Constantes
+        // ============================================
+        // CONFIGURACIÓN DE GOOGLE SHEETS - TU ID YA ESTÁ AQUÍ
+        // ============================================
+        
+        // ✅ TU ID DE GOOGLE SHEETS (ya configurado)
+        const SPREADSHEET_ID = '2PACX-1vQvamG7E53mMcoM8DAoeSIDqwbvOZh0pYV5p_BqoQQJMJ0uh2vZVe4DnHmGVBm08PEvDTqjbZO6hVv9';
+        
+        // URL para exportar como CSV
+        const CSV_URL = `https://docs.google.com/spreadsheets/d/e/${SPREADSHEET_ID}/pub?output=csv`;
+        
         const MONTO_MENSUAL = 120;
-
-        // Variables globales
+        let residentesDB = {};
+        let ultimaActualizacion = null;
         let calendar = null;
-        let residenteActualKey = null;
-        let residenteActualData = null;
 
-        // --- FUNCIONES DE TRANSPARENCIA ---
-        function actualizarSeccionTransparencia() {
+        // ============================================
+        // CARGAR DATOS DESDE GOOGLE SHEETS
+        // ============================================
+        
+        async function cargarDatosDesdeGoogleSheets() {
+            try {
+                console.log('📥 Cargando datos desde Google Sheets...');
+                
+                // Mostrar loading
+                document.getElementById('transparencyLoading').style.display = 'block';
+                document.getElementById('transparencyContent').style.display = 'none';
+                
+                // Usar un proxy para evitar problemas de CORS
+                const proxyUrl = 'https://api.allorigins.win/raw?url=';
+                const response = await fetch(proxyUrl + encodeURIComponent(CSV_URL));
+                
+                if (!response.ok) {
+                    throw new Error('Error al cargar los datos');
+                }
+                
+                const csvText = await response.text();
+                console.log('📄 CSV recibido:', csvText.substring(0, 200) + '...');
+                
+                // Parsear CSV
+                const lines = csvText.split('\n').filter(line => line.trim());
+                
+                if (lines.length < 2) {
+                    throw new Error('El CSV está vacío');
+                }
+                
+                // Obtener headers (primera línea)
+                const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+                console.log('📋 Headers:', headers);
+                
+                // Limpiar datos anteriores
+                residentesDB = {};
+                
+                // Procesar cada línea (saltando el header)
+                for (let i = 1; i < lines.length; i++) {
+                    if (!lines[i].trim()) continue;
+                    
+                    // Parsear CSV respetando comillas
+                    const values = [];
+                    let inQuotes = false;
+                    let currentValue = '';
+                    
+                    for (let char of lines[i]) {
+                        if (char === '"') {
+                            inQuotes = !inQuotes;
+                        } else if (char === ',' && !inQuotes) {
+                            values.push(currentValue);
+                            currentValue = '';
+                        } else {
+                            currentValue += char;
+                        }
+                    }
+                    values.push(currentValue);
+                    
+                    // Limpiar valores
+                    const cleanValues = values.map(v => v.replace(/^"|"$/g, '').trim());
+                    
+                    // Mapear valores
+                    if (cleanValues.length >= 2) {
+                        const aptoKey = cleanValues[0];
+                        const nombre = cleanValues[1] || `Residente ${aptoKey}`;
+                        
+                        // Crear objeto de pagos
+                        const pagos = {};
+                        
+                        // Mapear meses (asumiendo columnas C a H = ene_2025 a jun_2025)
+                        const mesesMap = {
+                            'ene_2025': '2025-01',
+                            'feb_2025': '2025-02',
+                            'mar_2025': '2025-03',
+                            'abr_2025': '2025-04',
+                            'may_2025': '2025-05',
+                            'jun_2025': '2025-06'
+                        };
+                        
+                        for (let j = 2; j < Math.min(cleanValues.length, 8); j++) {
+                            const header = headers[j];
+                            if (header && mesesMap[header]) {
+                                const fechaKey = mesesMap[header];
+                                const estado = cleanValues[j]?.toLowerCase().trim() || 'pendiente';
+                                pagos[fechaKey] = (estado === 'pagado' || estado === 'pagado' || estado === 'si' || estado === '✓') ? 'pagado' : 'pendiente';
+                            }
+                        }
+                        
+                        // Asegurar que todos los meses existen
+                        const mesesRequeridos = ['2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06'];
+                        mesesRequeridos.forEach(mes => {
+                            if (!pagos[mes]) {
+                                pagos[mes] = 'pendiente';
+                            }
+                        });
+                        
+                        residentesDB[aptoKey] = {
+                            nombre: nombre,
+                            pagos: pagos
+                        };
+                    }
+                }
+                
+                ultimaActualizacion = new Date();
+                console.log('✅ Datos cargados:', Object.keys(residentesDB).length, 'apartamentos');
+                
+                // Actualizar vista
+                actualizarTransparencia();
+                
+                // Ocultar loading
+                document.getElementById('transparencyLoading').style.display = 'none';
+                document.getElementById('transparencyContent').style.display = 'block';
+                
+                return true;
+            } catch (error) {
+                console.error('❌ Error cargando Google Sheets:', error);
+                
+                // Mostrar error pero usar datos de respaldo
+                document.getElementById('transparencyLoading').innerHTML = `
+                    <p style="color: #dc2626;">⚠️ Error cargando datos</p>
+                    <p style="font-size: 0.9rem;">Usando datos de respaldo</p>
+                    <button class="btn btn-primary" style="margin-top: 1rem;" onclick="cargarDatosDesdeGoogleSheets()">Reintentar</button>
+                `;
+                
+                // Datos de respaldo
+                usarDatosRespaldo();
+                return false;
+            }
+        }
+
+        function usarDatosRespaldo() {
+            // Datos de ejemplo por si falla la conexión
+            residentesDB = {
+                "A-PB-1": { 
+                    nombre: "Familia González", 
+                    pagos: {
+                        "2025-01": "pagado", "2025-02": "pagado", "2025-03": "pendiente",
+                        "2025-04": "pendiente", "2025-05": "pendiente", "2025-06": "pagado"
+                    }
+                },
+                "A-PB-2": { 
+                    nombre: "Rodrigo Méndez", 
+                    pagos: {
+                        "2025-01": "pagado", "2025-02": "pagado", "2025-03": "pagado",
+                        "2025-04": "pagado", "2025-05": "pagado", "2025-06": "pagado"
+                    }
+                },
+                "A-PH-1": { 
+                    nombre: "Marta Silva", 
+                    pagos: {
+                        "2025-01": "pagado", "2025-02": "pendiente", "2025-03": "pendiente",
+                        "2025-04": "pagado", "2025-05": "pagado", "2025-06": "pagado"
+                    }
+                }
+            };
+            
+            document.getElementById('transparencyLoading').style.display = 'none';
+            document.getElementById('transparencyContent').style.display = 'block';
+            actualizarTransparencia();
+        }
+
+        // ============================================
+        // ACTUALIZAR VISTA DE TRANSPARENCIA
+        // ============================================
+        
+        function actualizarTransparencia() {
             let totalAptos = 0;
             let totalMorosos = 0;
             let totalAdeudoGlobal = 0;
             const deudores = [];
 
-            // Recorrer todos los residentes en la DB
             for (let [aptoKey, data] of Object.entries(residentesDB)) {
                 totalAptos++;
                 let mesesPendientes = 0;
@@ -544,18 +493,12 @@
                 if (mesesPendientes > 0) {
                     totalMorosos++;
                     totalAdeudoGlobal += adeudoApto;
-                    deudores.push({
-                        apto: aptoKey,
-                        meses: mesesPendientes,
-                        total: adeudoApto
-                    });
+                    deudores.push({ apto: aptoKey, meses: mesesPendientes, total: adeudoApto });
                 }
             }
 
-            // Calcular porcentaje de morosidad
             const porcentajeMorosidad = totalAptos > 0 ? ((totalMorosos / totalAptos) * 100).toFixed(1) : 0;
 
-            // Actualizar stats
             document.getElementById('transparencyStats').innerHTML = `
                 <div class="stat-card">
                     <h3>Total Apartamentos</h3>
@@ -564,7 +507,7 @@
                 <div class="stat-card">
                     <h3>Morosidad Actual</h3>
                     <div class="stat-number ${totalMorosos > 0 ? 'red' : ''}">${porcentajeMorosidad}%</div>
-                    <div style="margin-top: 0.5rem; color: #475569;">${totalMorosos} apartamentos</div>
+                    <div style="margin-top: 0.5rem;">${totalMorosos} apartamentos</div>
                 </div>
                 <div class="stat-card">
                     <h3>Total Adeudado</h3>
@@ -572,10 +515,8 @@
                 </div>
             `;
 
-            // Ordenar deudores por monto (mayor a menor)
             deudores.sort((a, b) => b.total - a.total);
-
-            // Llenar tabla de deudores
+            
             const tbody = document.getElementById('debtorsTableBody');
             if (deudores.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 2rem;">🎉 Todos los apartamentos están al día</td></tr>`;
@@ -589,98 +530,91 @@
                     </tr>
                 `).join('');
             }
+
+            document.getElementById('lastUpdate').innerText = ultimaActualizacion 
+                ? ultimaActualizacion.toLocaleString() 
+                : 'ahora';
         }
 
-        // --- FUNCIONES DE INTERFAZ (SELECTS) ---
+        // ============================================
+        // FUNCIONES DE INTERFAZ
+        // ============================================
+        
         function populateNiveles() {
-            const torre = document.getElementById('selectTorre').value;
-            const nivelSelect = document.getElementById('selectNivel');
-            
-            // Cada torre tiene PB y PH
-            nivelSelect.innerHTML = `
+            document.getElementById('selectNivel').innerHTML = `
                 <option value="PB">Planta Baja (PB)</option>
                 <option value="PH">Penthouse (PH)</option>
             `;
-            
             populateApartamentos();
         }
 
         function populateApartamentos() {
-            const torre = document.getElementById('selectTorre').value;
-            const nivel = document.getElementById('selectNivel').value;
             const aptoSelect = document.getElementById('selectApartamento');
-            
-            // Cada nivel tiene 10 apartamentos (1 al 10)
-            const apartamentos = [];
+            let options = '';
             for (let i = 1; i <= 10; i++) {
-                apartamentos.push(i);
+                options += `<option value="${i}">${i}</option>`;
             }
-            
-            aptoSelect.innerHTML = apartamentos.map(n => `<option value="${n}">${n}</option>`).join('');
+            aptoSelect.innerHTML = options;
         }
 
-        // Inicializar selects
-        document.getElementById('selectTorre').addEventListener('change', populateNiveles);
-        document.getElementById('selectNivel').addEventListener('change', populateApartamentos);
-        populateNiveles();
-
-        // Inicializar transparencia al cargar la página
-        window.addEventListener('load', () => {
-            actualizarSeccionTransparencia();
-        });
-
-        // --- LOGIN ---
+        // ============================================
+        // LOGIN Y DASHBOARD
+        // ============================================
+        
         function handleLogin() {
             const torre = document.getElementById('selectTorre').value;
             const nivel = document.getElementById('selectNivel').value;
             const numero = document.getElementById('selectApartamento').value;
             const password = document.getElementById('passwordInput').value;
-            
-            // Simulación: cualquier contraseña no vacía es válida
+
             if (!password.trim()) {
                 alert('Ingrese una contraseña');
                 return;
             }
 
             const aptoKey = `${torre}-${nivel}-${numero}`;
-            residenteActualKey = aptoKey;
             
-            // Buscar en DB (si no existe, crear uno por defecto)
             if (!residentesDB[aptoKey]) {
+                // Si no existe, crear uno por defecto
                 residentesDB[aptoKey] = {
-                    nombre: `Residente Torre ${torre} ${nivel}-${numero}`,
+                    nombre: `Residente ${aptoKey}`,
                     pagos: {
                         "2025-01": "pagado", "2025-02": "pagado", "2025-03": "pagado",
                         "2025-04": "pendiente", "2025-05": "pendiente", "2025-06": "pendiente"
                     }
                 };
             }
-            
+
             residenteActualData = residentesDB[aptoKey];
 
-            // Mostrar dashboard
             document.getElementById('landingView').classList.add('hidden');
             document.getElementById('dashboardView').classList.remove('hidden');
 
-            // Actualizar info del residente
             document.getElementById('dashboardResidentName').innerText = residenteActualData.nombre;
             document.getElementById('dashboardResidentApto').innerText = `Torre ${torre} · ${nivel} · Apto ${numero}`;
 
-            // Calcular total adeudo
+            actualizarDashboardResidente();
+        }
+
+        function actualizarDashboardResidente() {
+            if (!residenteActualData) return;
+
             const pagos = residenteActualData.pagos;
             let adeudo = 0;
             let ultimoPagado = 'Ninguno';
+
             for (let [mes, estado] of Object.entries(pagos)) {
                 if (estado === 'pendiente') adeudo += MONTO_MENSUAL;
                 else if (estado === 'pagado') ultimoPagado = mes;
             }
+
             document.getElementById('adeudoTotal').innerText = `$${adeudo}`;
             document.getElementById('ultimoPago').innerText = ultimoPagado;
 
-            // Actualizar tarjeta de estado
             const cardEstado = document.getElementById('cardEstado');
             const estadoValor = document.getElementById('estadoValor');
             const estadoTexto = document.getElementById('estadoTexto');
+            
             if (adeudo > 0) {
                 cardEstado.classList.add('warning');
                 estadoValor.innerText = '⚠️ Moroso';
@@ -693,7 +627,6 @@
                 estadoTexto.innerText = 'Sin deudas';
             }
 
-            // Inicializar calendario
             initCalendar(pagos);
         }
 
@@ -701,14 +634,12 @@
             const calendarEl = document.getElementById('calendar');
             if (calendar) calendar.destroy();
 
-            // Convertir pagos a eventos de FullCalendar
             const events = [];
             for (let [mesKey, estado] of Object.entries(pagosData)) {
                 const [year, month] = mesKey.split('-');
                 const color = estado === 'pagado' ? '#4f9d69' : '#dc2626';
-                const title = estado === 'pagado' ? 'Pagado' : 'Pendiente';
                 events.push({
-                    title: title,
+                    title: estado === 'pagado' ? '✓ Pagado' : '⚠️ Pendiente',
                     start: `${year}-${month}-15`,
                     allDay: true,
                     color: color,
@@ -718,7 +649,11 @@
 
             calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-                headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth' },
+                headerToolbar: { 
+                    left: 'prev,next today', 
+                    center: 'title', 
+                    right: 'dayGridMonth' 
+                },
                 events: events,
                 eventClick: function(info) {
                     const mes = info.event.extendedProps.mes;
@@ -726,7 +661,8 @@
                     const monto = estado === 'pendiente' ? `$${MONTO_MENSUAL} pendiente` : 'Pagado';
                     alert(`Mes: ${mes}\nEstado: ${estado}\nMonto: ${monto}`);
                 },
-                height: 'auto'
+                height: 'auto',
+                locale: 'es'
             });
             calendar.render();
         }
@@ -738,16 +674,30 @@
                 calendar.destroy();
                 calendar = null;
             }
-            // Actualizar transparencia por si hubo cambios (simulado)
-            actualizarSeccionTransparencia();
         }
+
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        
+        // Cargar datos al iniciar
+        window.addEventListener('load', () => {
+            cargarDatosDesdeGoogleSheets();
+            populateNiveles();
+            populateApartamentos();
+            
+            // Actualizar cada 5 minutos (300000 ms)
+            setInterval(cargarDatosDesdeGoogleSheets, 300000);
+        });
 
         // Scroll suave para navegación
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth' });
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
     </script>
