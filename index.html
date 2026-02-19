@@ -3,188 +3,630 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Las Rosas - Gestión con Google Sheets</title>
-    <!-- Fuentes y estilos -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Las Rosas · Portal Residencial Profesional</title>
+    
+    <!-- FUENTES PROFESIONALES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FULLCALENDAR -->
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css' rel='stylesheet' />
+    
+    <!-- FONT AWESOME (ICONOS) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #f4f7fb; color: #1e293b; }
-        
-        /* Navbar */
-        .navbar {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 1rem 5%; background: rgba(255,255,255,0.95);
-            position: fixed; top: 0; width: 100%; z-index: 100;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-        }
-        .logo { font-size: 1.5rem; font-weight: 700; color: #0f3b2c; }
-        .logo span { color: #e6535e; }
-        .nav-links a {
-            margin-left: 2rem; text-decoration: none; color: #1e293b; font-weight: 500;
-        }
-        .btn-login-nav {
-            background: #0f3b2c; color: white !important;
-            padding: 0.5rem 1.2rem; border-radius: 30px;
+        /* ===== VARIABLES PROFESIONALES ===== */
+        :root {
+            --primary: #0a5c3b;
+            --primary-dark: #06432a;
+            --primary-light: #e8f3ed;
+            --secondary: #d4af37;
+            --accent: #e6535e;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
+            --white: #ffffff;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
         }
 
-        /* Landing */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ===== NAVBAR PROFESIONAL ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(10, 92, 59, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .logo span {
+            background: linear-gradient(135deg, var(--accent) 0%, #f87171 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .btn-login-nav {
+            background: var(--primary);
+            color: white !important;
+            padding: 0.6rem 1.5rem !important;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgba(10, 92, 59, 0.2);
+        }
+        .btn-login-nav:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .btn-login-nav:after {
+            display: none !important;
+        }
+
+        /* ===== HERO SECTION PROFESIONAL ===== */
         .landing { padding-top: 80px; }
+        
         .hero {
             min-height: 90vh;
-            background: linear-gradient(rgba(15,59,44,0.85), rgba(15,59,44,0.85)),
-                        url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600');
-            background-size: cover;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center; color: white;
+            background: linear-gradient(135deg, rgba(10, 92, 59, 0.92) 0%, rgba(6, 67, 42, 0.95) 100%),
+                        url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
         }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
 
-        /* Botones */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        /* ===== BOTONES PROFESIONALES ===== */
         .btn {
-            display: inline-block; padding: 0.8rem 2rem; border-radius: 30px;
-            text-decoration: none; font-weight: 600; border: none; cursor: pointer;
-            transition: all 0.2s;
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
-        .btn-primary { background: #4f9d69; color: white; }
-        .btn-primary:hover { background: #3d7e52; transform: translateY(-2px); }
-        .btn-outline { border: 2px solid white; color: white; background: transparent; }
-        .btn-outline:hover { background: white; color: #0f3b2c; }
 
-        /* Secciones */
-        .transparency-section { padding: 4rem 5%; background: white; }
-        .section-title { font-size: 2.5rem; color: #0f3b2c; text-align: center; margin-bottom: 2rem; }
-        
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-outline {
+            border: 2px solid white;
+            color: white;
+            background: transparent;
+            margin-left: 1rem;
+        }
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* ===== SECCIÓN TRANSPARENCIA PROFESIONAL ===== */
+        .transparency-section {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Tarjetas de estadísticas */
         .stats-grid {
-            display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem;
-            margin-bottom: 3rem; max-width: 1200px; margin: 0 auto 3rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
         }
-        .stat-card {
-            background: #f4f7fb; padding: 2rem; border-radius: 20px;
-            text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .stat-card h3 { color: #64748b; font-size: 1rem; text-transform: uppercase; }
-        .stat-card .stat-number { font-size: 2.5rem; font-weight: 700; color: #0f3b2c; }
-        .stat-card .stat-number.red { color: #dc2626; }
 
-        .debtors-table {
-            background: #f4f7fb; border-radius: 20px; padding: 2rem;
-            max-width: 1200px; margin: 0 auto;
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(10, 92, 59, 0.1);
         }
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 1rem; background: #e2e8f0; }
-        td { padding: 1rem; border-bottom: 1px solid #cbd5e1; }
-        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .stat-card h3 {
+            color: var(--gray);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+        .stat-number.red { color: var(--danger); }
+        .stat-number.green { color: var(--success); }
+
+        /* Tabla de deudores */
+        .debtors-table {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .table-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
         .badge {
-            padding: 0.25rem 0.75rem; border-radius: 9999px;
-            font-size: 0.875rem; font-weight: 500;
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
         .badge.warning { background: #fef3c7; color: #92400e; }
+        .badge.success { background: #dcfce7; color: var(--success); }
+        .badge.danger { background: #fee2e2; color: var(--danger); }
 
-        /* Login */
-        .login-section { padding: 4rem 5%; background: #f4f7fb; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            background: var(--light-gray);
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* ===== LOGIN CARD ===== */
+        .login-section {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        }
+
         .login-card {
-            max-width: 500px; margin: 0 auto; background: white;
-            border-radius: 30px; padding: 3rem; box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-        }
-        .form-group { margin-bottom: 1.5rem; }
-        label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
-        select, input {
-            width: 100%; padding: 0.8rem 1rem; border: 2px solid #e2e8f0;
-            border-radius: 12px; font-family: inherit;
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(10, 92, 59, 0.1);
         }
 
-        /* Dashboard */
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f8fafc;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(10, 92, 59, 0.1);
+        }
+
+        /* ===== DASHBOARD PROFESIONAL ===== */
         .dashboard {
-            min-height: 100vh; background: #f4f7fb;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f1f5f9 0%, #ffffff 100%);
             padding: 100px 2% 2rem 2%;
         }
+
         .dashboard-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 2rem; padding: 1rem 2rem; background: white;
-            border-radius: 20px;
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(10, 92, 59, 0.1);
         }
+
+        .resident-badge {
+            background: var(--primary-light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .btn-logout {
+            background: none;
+            border: 2px solid #e2e8f0;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray);
+            transition: all 0.3s;
+        }
+        .btn-logout:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* Tarjetas de resumen mejoradas */
         .summary-cards {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-            gap: 1.5rem; margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
+
         .card {
-            background: white; padding: 1.5rem; border-radius: 20px;
-            border-left: 5px solid #4f9d69;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s;
         }
-        .card.warning { border-left-color: #dc2626; }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        .card.warning { border-left-color: var(--warning); }
+        .card.danger { border-left-color: var(--danger); }
+        .card.success { border-left-color: var(--success); }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .card-header i {
+            font-size: 1.5rem;
+            color: var(--gray);
+        }
+        .card-header h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+        .card-value small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--gray);
+        }
+
+        .card-footer {
+            font-size: 0.9rem;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Grid del dashboard */
         .dashboard-grid {
-            display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
         }
-        .calendar-widget { background: white; border-radius: 20px; padding: 1.5rem; }
-        .announcements { background: white; border-radius: 20px; padding: 1.5rem; }
-        .hidden { display: none !important; }
-        
+
+        /* Calendario profesional */
+        .calendar-widget {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .calendar-widget h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        #calendar {
+            background: white;
+            border-radius: 16px;
+        }
+
+        /* Info personal del residente (privada) */
+        .resident-private-info {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 16px;
+        }
+        .info-item i {
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+
         /* Loading */
         .loading {
-            text-align: center; padding: 3rem;
-            background: white; border-radius: 20px;
-            margin: 2rem auto; max-width: 400px;
+            text-align: center;
+            padding: 4rem;
         }
-        .loading-spinner {
-            border: 4px solid #f3f3f3; border-top: 4px solid #4f9d69;
-            border-radius: 50%; width: 50px; height: 50px;
-            animation: spin 1s linear infinite; margin: 1rem auto;
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--primary-light);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .refresh-info {
-            text-align: center; color: #64748b; font-size: 0.9rem;
-            margin-top: 1rem; padding: 0.5rem;
-            background: #e2e8f0; border-radius: 30px; display: inline-block;
-        }
+        .hidden { display: none !important; }
 
         @media (max-width: 900px) {
+            .hero h1 { font-size: 2.5rem; }
             .stats-grid { grid-template-columns: 1fr; }
             .dashboard-grid { grid-template-columns: 1fr; }
+            .info-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR PROFESIONAL -->
     <nav class="navbar">
-        <div class="logo">🌹 Las <span>Rosas</span></div>
+        <div class="logo">Las <span>Rosas</span></div>
         <div class="nav-links">
             <a href="#inicio">Inicio</a>
             <a href="#transparencia">Transparencia</a>
-            <a href="#acceso" class="btn-login-nav">Acceso Residentes</a>
+            <a href="#acceso" class="btn-login-nav"><i class="fas fa-user" style="margin-right: 0.5rem;"></i>Acceso Residentes</a>
         </div>
     </nav>
 
     <!-- LANDING PAGE -->
     <div id="landingView" class="landing">
         <section id="inicio" class="hero">
-            <div>
-                <h1>Bienvenido a Las Rosas</h1>
-                <p>Gestión transparente con actualización automática desde Google Sheets</p>
-                <a href="#acceso" class="btn btn-primary">Ingresar al Portal</a>
-                <a href="#transparencia" class="btn btn-outline">Ver Transparencia</a>
+            <div class="hero-content">
+                <h1>Bienvenido a<br>Las Rosas</h1>
+                <p>Gestión profesional y transparente para tu comunidad</p>
+                <div>
+                    <a href="#acceso" class="btn btn-primary"><i class="fas fa-sign-in-alt" style="margin-right: 0.5rem;"></i>Ingresar al Portal</a>
+                    <a href="#transparencia" class="btn btn-outline"><i class="fas fa-chart-line" style="margin-right: 0.5rem;"></i>Ver Transparencia</a>
+                </div>
             </div>
         </section>
 
-        <!-- SECCIÓN TRANSPARENCIA (SE ACTUALIZA AUTOMÁTICAMENTE) -->
+        <!-- SECCIÓN TRANSPARENCIA PROFESIONAL -->
         <section id="transparencia" class="transparency-section">
             <h2 class="section-title">Transparencia Financiera</h2>
-            <p style="text-align: center; max-width: 700px; margin: 0 auto 2rem; color: #475569;">
-                Datos actualizados desde Google Sheets en tiempo real
+            <p class="section-subtitle">
+                Información actualizada en tiempo real desde nuestro sistema de gestión
             </p>
             
             <div id="transparencyLoading" class="loading">
-                <div class="loading-spinner"></div>
-                <p>Cargando datos desde Google Sheets...</p>
+                <div class="spinner"></div>
+                <p style="color: var(--gray);">Cargando datos financieros...</p>
             </div>
 
             <div id="transparencyContent" style="display: none;">
                 <div class="stats-grid" id="transparencyStats"></div>
                 
                 <div class="debtors-table">
-                    <h3>📋 Apartamentos con cuotas pendientes</h3>
+                    <div class="table-header">
+                        <h3><i class="fas fa-exclamation-triangle" style="color: var(--warning); margin-right: 0.5rem;"></i>Apartamentos con cuotas pendientes</h3>
+                        <span class="badge warning">Público</span>
+                    </div>
                     <table>
                         <thead>
                             <tr>
@@ -196,7 +638,8 @@
                         </thead>
                         <tbody id="debtorsTableBody"></tbody>
                     </table>
-                    <div class="refresh-info" id="refreshInfo">
+                    <div style="margin-top: 1rem; text-align: center; color: var(--gray);">
+                        <i class="fas fa-sync-alt" style="margin-right: 0.5rem;"></i>
                         Última actualización: <span id="lastUpdate">cargando...</span>
                     </div>
                 </div>
@@ -206,83 +649,142 @@
         <!-- LOGIN -->
         <section id="acceso" class="login-section">
             <div class="login-card">
-                <h2>Portal del Residente</h2>
-                <p style="margin-bottom: 2rem;">Consulta tu estado de cuenta</p>
+                <div class="login-header">
+                    <h2>Portal del Residente</h2>
+                    <p style="color: var(--gray);">Accede a tu información privada</p>
+                </div>
                 
                 <div class="form-group">
-                    <label>Torre</label>
-                    <select id="selectTorre">
+                    <label><i class="fas fa-building" style="margin-right: 0.5rem; color: var(--primary);"></i>Torre</label>
+                    <select id="selectTorre" class="form-control">
                         <option value="A">Torre A</option>
                         <option value="B">Torre B</option>
                         <option value="C">Torre C</option>
                     </select>
                 </div>
+                
                 <div class="form-group">
-                    <label>Nivel</label>
-                    <select id="selectNivel">
+                    <label><i class="fas fa-layer-group" style="margin-right: 0.5rem; color: var(--primary);"></i>Nivel</label>
+                    <select id="selectNivel" class="form-control">
                         <option value="PB">Planta Baja (PB)</option>
                         <option value="PH">Penthouse (PH)</option>
                     </select>
                 </div>
+                
                 <div class="form-group">
-                    <label>Apartamento</label>
-                    <select id="selectApartamento"></select>
+                    <label><i class="fas fa-door-open" style="margin-right: 0.5rem; color: var(--primary);"></i>Apartamento</label>
+                    <select id="selectApartamento" class="form-control"></select>
                 </div>
+                
                 <div class="form-group">
-                    <label>Contraseña</label>
-                    <input type="password" id="passwordInput" value="1234">
+                    <label><i class="fas fa-lock" style="margin-right: 0.5rem; color: var(--primary);"></i>Contraseña</label>
+                    <input type="password" id="passwordInput" class="form-control" value="1234" placeholder="••••••••">
                 </div>
-                <button class="btn btn-primary" style="width:100%;" onclick="handleLogin()">Acceder</button>
+                
+                <button class="btn btn-primary" style="width: 100%;" onclick="handleLogin()">
+                    <i class="fas fa-arrow-right-to-bracket" style="margin-right: 0.5rem;"></i>Acceder a mi cuenta
+                </button>
+                
+                <p style="margin-top: 1.5rem; text-align: center; color: var(--gray); font-size: 0.9rem;">
+                    <i class="fas fa-shield-alt" style="margin-right: 0.3rem;"></i>
+                    Acceso seguro y privado
+                </p>
             </div>
         </section>
 
-        <footer style="background:#0f3b2c; color:white; text-align:center; padding:2rem;">
-            <p>© 2026 Conjunto Residencial Las Rosas · Datos en tiempo real desde Google Sheets</p>
+        <footer style="background: var(--dark); color: white; text-align: center; padding: 3rem;">
+            <p style="opacity: 0.9;">© 2026 Conjunto Residencial Las Rosas · Gestión Profesional</p>
         </footer>
     </div>
 
-    <!-- DASHBOARD -->
+    <!-- DASHBOARD PRIVADO (SOLO PARA RESIDENTES) -->
     <div id="dashboardView" class="dashboard hidden">
         <div class="dashboard-header">
-            <div class="resident-info">
-                <h3 id="dashboardResidentName">Cargando...</h3>
-                <p id="dashboardResidentApto"></p>
+            <div>
+                <h2 id="dashboardResidentName" style="font-size: 1.5rem; font-weight: 700; color: var(--dark);"></h2>
+                <span class="resident-badge" id="dashboardResidentApto"></span>
             </div>
-            <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+            <button class="btn-logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt" style="margin-right: 0.5rem;"></i>Cerrar sesión
+            </button>
         </div>
 
+        <!-- TARJETAS DE RESUMEN PERSONALIZADO -->
         <div class="summary-cards">
             <div class="card" id="cardEstado">
-                <h4>Estado de cuenta</h4>
-                <div class="value" id="estadoValor">—</div>
-                <div class="status" id="estadoTexto">—</div>
+                <div class="card-header">
+                    <i class="fas fa-credit-card"></i>
+                    <h4>Estado de cuenta</h4>
+                </div>
+                <div class="card-value" id="estadoValor">—</div>
+                <div class="card-footer" id="estadoTexto">—</div>
             </div>
-            <div class="card"><h4>Total adeudado</h4><div class="value" id="adeudoTotal">$0</div></div>
-            <div class="card"><h4>Último pago</h4><div class="value" id="ultimoPago">—</div></div>
+            
+            <div class="card" id="cardDeuda">
+                <div class="card-header">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h4>Total adeudado</h4>
+                </div>
+                <div class="card-value" id="adeudoTotal">$0</div>
+                <div class="card-footer" id="adeudoDetalle"></div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-calendar-check"></i>
+                    <h4>Último pago</h4>
+                </div>
+                <div class="card-value" id="ultimoPago">—</div>
+                <div class="card-footer" id="ultimoPagoDetalle"></div>
+            </div>
         </div>
 
+        <!-- INFORMACIÓN PRIVADA DEL RESIDENTE (SOLO ÉL LO VE) -->
+        <div class="resident-private-info">
+            <h3 style="display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-address-card" style="color: var(--primary);"></i>
+                Información personal (privada)
+            </h3>
+            <div class="info-grid" id="residentPrivateInfo">
+                <!-- Se llena con JS -->
+            </div>
+        </div>
+
+        <!-- GRID PRINCIPAL -->
         <div class="dashboard-grid">
             <div class="calendar-widget">
-                <h3>📅 Historial de pagos 2026</h3>
+                <h3><i class="fas fa-calendar-alt" style="margin-right: 0.5rem; color: var(--primary);"></i>Historial de pagos 2026</h3>
                 <div id="calendar"></div>
-                <p style="margin-top:1rem; font-size:0.9rem; color:#64748b;">
-                    ✅ Verde: pagado · ❌ Rojo: pendiente · Cuota mensual: $3
-                </p>
+                <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
+                    <span><i class="fas fa-circle" style="color: var(--success);"></i> Pagado</span>
+                    <span><i class="fas fa-circle" style="color: var(--danger);"></i> Pendiente</span>
+                    <span><i class="fas fa-circle" style="color: var(--warning);"></i> Próximo</span>
+                </div>
             </div>
-            <div class="announcements">
-                <h3>📢 Comunicados</h3>
-                <div id="comunicadosList">
-                    <div style="padding: 1rem 0; border-bottom: 1px solid #e2e8f0;">
-                        <span style="color: #64748b; font-size: 0.9rem;">20 Feb 2026</span>
-                        <div style="font-weight: 600;">Asamblea general este sábado</div>
+
+            <div>
+                <div class="calendar-widget" style="margin-bottom: 1.5rem;">
+                    <h3><i class="fas fa-bullhorn" style="margin-right: 0.5rem; color: var(--primary);"></i>Comunicados</h3>
+                    <div id="comunicadosList">
+                        <div style="padding: 1rem 0; border-bottom: 1px solid #e2e8f0;">
+                            <span style="color: var(--gray); font-size: 0.85rem;">20 Feb 2026</span>
+                            <div style="font-weight: 600; margin-top: 0.25rem;">Asamblea general este sábado</div>
+                        </div>
+                        <div style="padding: 1rem 0; border-bottom: 1px solid #e2e8f0;">
+                            <span style="color: var(--gray); font-size: 0.85rem;">15 Feb 2026</span>
+                            <div style="font-weight: 600; margin-top: 0.25rem;">Limpieza de tanques - corte de agua</div>
+                        </div>
+                        <div style="padding: 1rem 0;">
+                            <span style="color: var(--gray); font-size: 0.85rem;">10 Feb 2026</span>
+                            <div style="font-weight: 600; margin-top: 0.25rem;">Nuevo horario de piscina</div>
+                        </div>
                     </div>
-                    <div style="padding: 1rem 0; border-bottom: 1px solid #e2e8f0;">
-                        <span style="color: #64748b; font-size: 0.9rem;">15 Feb 2026</span>
-                        <div style="font-weight: 600;">Limpieza de tanques - corte de agua</div>
-                    </div>
-                    <div style="padding: 1rem 0;">
-                        <span style="color: #64748b; font-size: 0.9rem;">10 Feb 2026</span>
-                        <div style="font-weight: 600;">Nuevo horario de piscina</div>
+                </div>
+
+                <div class="calendar-widget">
+                    <h3><i class="fas fa-chart-pie" style="margin-right: 0.5rem; color: var(--primary);"></i>Resumen anual</h3>
+                    <div id="resumenAnual" style="text-align: center; padding: 1rem;">
+                        <!-- Se llena con JS -->
                     </div>
                 </div>
             </div>
@@ -293,19 +795,15 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
     <script>
         // ============================================
-        // CONFIGURACIÓN DE GOOGLE SHEETS
+        // CONFIGURACIÓN PROFESIONAL
         // ============================================
         
         // ✅ TU ID DE GOOGLE SHEETS
         const SPREADSHEET_ID = '2PACX-1vQvamG7E53mMcoM8DAoeSIDqwbvOZh0pYV5p_BqoQQJMJ0uh2vZVe4DnHmGVBm08PEvDTqjbZO6hVv9';
-        
-        // URL para exportar como CSV
         const CSV_URL = `https://docs.google.com/spreadsheets/d/e/${SPREADSHEET_ID}/pub?output=csv`;
         
-        // 💰 MONTO MENSUAL ACTUALIZADO: $3
+        // 💰 CONFIGURACIÓN
         const MONTO_MENSUAL = 3;
-        
-        // 📅 MESES ACTUALIZADOS A 2026
         const MESES = {
             'ene_2026': '2026-01',
             'feb_2026': '2026-02',
@@ -318,6 +816,8 @@
         let residentesDB = {};
         let ultimaActualizacion = null;
         let calendar = null;
+        let residenteActualKey = null;
+        let residenteActualData = null;
 
         // ============================================
         // CARGAR DATOS DESDE GOOGLE SHEETS
@@ -325,126 +825,97 @@
         
         async function cargarDatosDesdeGoogleSheets() {
             try {
-                console.log('📥 Cargando datos desde Google Sheets...');
-                
-                // Mostrar loading
                 document.getElementById('transparencyLoading').style.display = 'block';
                 document.getElementById('transparencyContent').style.display = 'none';
                 
-                // Usar un proxy para evitar problemas de CORS
                 const proxyUrl = 'https://api.allorigins.win/raw?url=';
                 const response = await fetch(proxyUrl + encodeURIComponent(CSV_URL));
                 
-                if (!response.ok) {
-                    throw new Error('Error al cargar los datos');
-                }
+                if (!response.ok) throw new Error('Error al cargar los datos');
                 
                 const csvText = await response.text();
-                console.log('📄 CSV recibido:', csvText.substring(0, 200) + '...');
-                
-                // Parsear CSV
                 const lines = csvText.split('\n').filter(line => line.trim());
                 
-                if (lines.length < 2) {
-                    throw new Error('El CSV está vacío');
-                }
+                if (lines.length < 2) throw new Error('El CSV está vacío');
                 
-                // Obtener headers (primera línea)
                 const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-                console.log('📋 Headers:', headers);
-                
-                // Limpiar datos anteriores
                 residentesDB = {};
                 
-                // Procesar cada línea (saltando el header)
                 for (let i = 1; i < lines.length; i++) {
                     if (!lines[i].trim()) continue;
                     
-                    // Parsear CSV respetando comillas
+                    // Parsear CSV
                     const values = [];
                     let inQuotes = false;
                     let currentValue = '';
                     
                     for (let char of lines[i]) {
-                        if (char === '"') {
-                            inQuotes = !inQuotes;
-                        } else if (char === ',' && !inQuotes) {
+                        if (char === '"') inQuotes = !inQuotes;
+                        else if (char === ',' && !inQuotes) {
                             values.push(currentValue);
                             currentValue = '';
-                        } else {
-                            currentValue += char;
-                        }
+                        } else currentValue += char;
                     }
                     values.push(currentValue);
                     
-                    // Limpiar valores
                     const cleanValues = values.map(v => v.replace(/^"|"$/g, '').trim());
                     
-                    // Mapear valores
                     if (cleanValues.length >= 2) {
                         const aptoKey = cleanValues[0];
                         const nombre = cleanValues[1] || `Residente ${aptoKey}`;
                         
-                        // Crear objeto de pagos
-                        const pagos = {};
+                        // Datos privados
+                        const telefono = cleanValues[9] || 'No registrado';
+                        const email = cleanValues[10] || 'No registrado';
+                        const ultimoPago = cleanValues[2] || 'No registrado';
                         
-                        // Mapear meses (columnas C a H)
-                        for (let j = 2; j < Math.min(cleanValues.length, 8); j++) {
+                        // Pagos
+                        const pagos = {};
+                        for (let j = 3; j <= 8; j++) {
                             const header = headers[j];
                             if (header && MESES[header]) {
                                 const fechaKey = MESES[header];
                                 const estado = cleanValues[j]?.toLowerCase().trim() || 'pendiente';
-                                pagos[fechaKey] = (estado === 'pagado' || estado === 'pagado' || estado === 'si' || estado === '✓') ? 'pagado' : 'pendiente';
+                                pagos[fechaKey] = (estado === 'pagado' || estado === 'si' || estado === '✓') ? 'pagado' : 'pendiente';
                             }
                         }
                         
-                        // Asegurar que todos los meses existen
-                        const mesesRequeridos = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06'];
-                        mesesRequeridos.forEach(mes => {
-                            if (!pagos[mes]) {
-                                pagos[mes] = 'pendiente';
-                            }
+                        // Asegurar todos los meses
+                        ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06'].forEach(mes => {
+                            if (!pagos[mes]) pagos[mes] = 'pendiente';
                         });
                         
                         residentesDB[aptoKey] = {
                             nombre: nombre,
+                            telefono: telefono,
+                            email: email,
+                            ultimoPago: ultimoPago,
                             pagos: pagos
                         };
                     }
                 }
                 
                 ultimaActualizacion = new Date();
-                console.log('✅ Datos cargados:', Object.keys(residentesDB).length, 'apartamentos');
-                
-                // Actualizar vista
                 actualizarTransparencia();
                 
-                // Ocultar loading
                 document.getElementById('transparencyLoading').style.display = 'none';
                 document.getElementById('transparencyContent').style.display = 'block';
                 
                 return true;
             } catch (error) {
-                console.error('❌ Error cargando Google Sheets:', error);
-                
-                // Mostrar error pero usar datos de respaldo
-                document.getElementById('transparencyLoading').innerHTML = `
-                    <p style="color: #dc2626;">⚠️ Error cargando datos</p>
-                    <p style="font-size: 0.9rem;">Usando datos de respaldo</p>
-                    <button class="btn btn-primary" style="margin-top: 1rem;" onclick="cargarDatosDesdeGoogleSheets()">Reintentar</button>
-                `;
-                
-                // Datos de respaldo
+                console.error('Error:', error);
                 usarDatosRespaldo();
                 return false;
             }
         }
 
         function usarDatosRespaldo() {
-            // Datos de ejemplo para 2026
             residentesDB = {
                 "A-PB-1": { 
                     nombre: "Familia González", 
+                    telefono: "8888-5555",
+                    email: "gonzalez@email.com",
+                    ultimoPago: "2026-01-15",
                     pagos: {
                         "2026-01": "pagado", "2026-02": "pagado", "2026-03": "pendiente",
                         "2026-04": "pendiente", "2026-05": "pendiente", "2026-06": "pagado"
@@ -452,15 +923,11 @@
                 },
                 "A-PB-2": { 
                     nombre: "Rodrigo Méndez", 
+                    telefono: "8888-1234",
+                    email: "rmendez@email.com",
+                    ultimoPago: "2026-06-10",
                     pagos: {
                         "2026-01": "pagado", "2026-02": "pagado", "2026-03": "pagado",
-                        "2026-04": "pagado", "2026-05": "pagado", "2026-06": "pagado"
-                    }
-                },
-                "A-PH-1": { 
-                    nombre: "Marta Silva", 
-                    pagos: {
-                        "2026-01": "pagado", "2026-02": "pendiente", "2026-03": "pendiente",
                         "2026-04": "pagado", "2026-05": "pagado", "2026-06": "pagado"
                     }
                 }
@@ -472,13 +939,11 @@
         }
 
         // ============================================
-        // ACTUALIZAR VISTA DE TRANSPARENCIA
+        // TRANSPARENCIA PÚBLICA
         // ============================================
         
         function actualizarTransparencia() {
-            let totalAptos = 0;
-            let totalMorosos = 0;
-            let totalAdeudoGlobal = 0;
+            let totalAptos = 0, totalMorosos = 0, totalAdeudoGlobal = 0;
             const deudores = [];
 
             for (let [aptoKey, data] of Object.entries(residentesDB)) {
@@ -486,7 +951,7 @@
                 let mesesPendientes = 0;
                 let adeudoApto = 0;
 
-                for (let [mes, estado] of Object.entries(data.pagos)) {
+                for (let estado of Object.values(data.pagos)) {
                     if (estado === 'pendiente') {
                         mesesPendientes++;
                         adeudoApto += MONTO_MENSUAL;
@@ -504,17 +969,20 @@
 
             document.getElementById('transparencyStats').innerHTML = `
                 <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-building"></i></div>
                     <h3>Total Apartamentos</h3>
                     <div class="stat-number">${totalAptos}</div>
                 </div>
                 <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
                     <h3>Morosidad Actual</h3>
-                    <div class="stat-number ${totalMorosos > 0 ? 'red' : ''}">${porcentajeMorosidad}%</div>
-                    <div style="margin-top: 0.5rem;">${totalMorosos} apartamentos</div>
+                    <div class="stat-number ${totalMorosos > 0 ? 'red' : 'green'}">${porcentajeMorosidad}%</div>
+                    <div>${totalMorosos} apartamentos</div>
                 </div>
                 <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
                     <h3>Total Adeudado</h3>
-                    <div class="stat-number red">$${totalAdeudoGlobal.toLocaleString()}</div>
+                    <div class="stat-number red">$${totalAdeudoGlobal}</div>
                 </div>
             `;
 
@@ -528,7 +996,7 @@
                     <tr>
                         <td><strong>${d.apto}</strong></td>
                         <td>${d.meses} ${d.meses === 1 ? 'mes' : 'meses'}</td>
-                        <td>$${d.total}</td>
+                        <td><strong>$${d.total}</strong></td>
                         <td><span class="badge warning">Pendiente</span></td>
                     </tr>
                 `).join('');
@@ -561,7 +1029,7 @@
         }
 
         // ============================================
-        // LOGIN Y DASHBOARD
+        // LOGIN Y DASHBOARD PRIVADO
         // ============================================
         
         function handleLogin() {
@@ -578,9 +1046,11 @@
             const aptoKey = `${torre}-${nivel}-${numero}`;
             
             if (!residentesDB[aptoKey]) {
-                // Si no existe, crear uno por defecto para 2026
                 residentesDB[aptoKey] = {
                     nombre: `Residente ${aptoKey}`,
+                    telefono: 'No registrado',
+                    email: 'No registrado',
+                    ultimoPago: 'No registrado',
                     pagos: {
                         "2026-01": "pagado", "2026-02": "pagado", "2026-03": "pagado",
                         "2026-04": "pendiente", "2026-05": "pendiente", "2026-06": "pendiente"
@@ -588,13 +1058,14 @@
                 };
             }
 
+            residenteActualKey = aptoKey;
             residenteActualData = residentesDB[aptoKey];
 
             document.getElementById('landingView').classList.add('hidden');
             document.getElementById('dashboardView').classList.remove('hidden');
 
             document.getElementById('dashboardResidentName').innerText = residenteActualData.nombre;
-            document.getElementById('dashboardResidentApto').innerText = `Torre ${torre} · ${nivel} · Apto ${numero}`;
+            document.getElementById('dashboardResidentApto').innerHTML = `<i class="fas fa-map-pin"></i> ${aptoKey}`;
 
             actualizarDashboardResidente();
         }
@@ -603,32 +1074,73 @@
             if (!residenteActualData) return;
 
             const pagos = residenteActualData.pagos;
+            let mesesPendientes = 0;
             let adeudo = 0;
-            let ultimoPagado = 'Ninguno';
+            let ultimoPagado = residenteActualData.ultimoPago;
 
             for (let [mes, estado] of Object.entries(pagos)) {
-                if (estado === 'pendiente') adeudo += MONTO_MENSUAL;
-                else if (estado === 'pagado') ultimoPagado = mes;
+                if (estado === 'pendiente') {
+                    mesesPendientes++;
+                    adeudo += MONTO_MENSUAL;
+                }
             }
 
-            document.getElementById('adeudoTotal').innerText = `$${adeudo}`;
-            document.getElementById('ultimoPago').innerText = ultimoPagado;
+            // Actualizar tarjetas
+            document.getElementById('adeudoTotal').innerHTML = `$${adeudo} <small>USD</small>`;
+            document.getElementById('adeudoDetalle').innerHTML = `${mesesPendientes} ${mesesPendientes === 1 ? 'mes pendiente' : 'meses pendientes'}`;
+            document.getElementById('ultimoPago').innerText = ultimoPagado !== 'No registrado' ? ultimoPagado : '—';
+            document.getElementById('ultimoPagoDetalle').innerHTML = ultimoPagado !== 'No registrado' ? 'Último registro' : 'Sin pagos registrados';
 
+            // Estado de cuenta
             const cardEstado = document.getElementById('cardEstado');
             const estadoValor = document.getElementById('estadoValor');
             const estadoTexto = document.getElementById('estadoTexto');
             
             if (adeudo > 0) {
-                cardEstado.classList.add('warning');
-                estadoValor.innerText = '⚠️ Moroso';
-                estadoValor.classList.add('red');
-                estadoTexto.innerText = 'Pagos pendientes';
+                cardEstado.className = 'card danger';
+                estadoValor.innerHTML = '⚠️ Moroso';
+                estadoTexto.innerHTML = `<i class="fas fa-exclamation-circle"></i> Debe $${adeudo}`;
             } else {
-                cardEstado.classList.remove('warning');
-                estadoValor.innerText = '✅ Al día';
-                estadoValor.classList.add('green');
-                estadoTexto.innerText = 'Sin deudas';
+                cardEstado.className = 'card success';
+                estadoValor.innerHTML = '✅ Al día';
+                estadoTexto.innerHTML = '<i class="fas fa-check-circle"></i> Sin deudas';
             }
+
+            // Información privada
+            document.getElementById('residentPrivateInfo').innerHTML = `
+                <div class="info-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <div>
+                        <small style="color: var(--gray);">Teléfono</small><br>
+                        <strong>${residenteActualData.telefono}</strong>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <small style="color: var(--gray);">Email</small><br>
+                        <strong>${residenteActualData.email}</strong>
+                    </div>
+                </div>
+            `;
+
+            // Resumen anual
+            const pagados = Object.values(pagos).filter(e => e === 'pagado').length;
+            document.getElementById('resumenAnual').innerHTML = `
+                <div style="display: flex; justify-content: space-around; margin-bottom: 1rem;">
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--success);">${pagados}</div>
+                        <div style="color: var(--gray);">Meses pagados</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--danger);">${6-pagados}</div>
+                        <div style="color: var(--gray);">Meses pendientes</div>
+                    </div>
+                </div>
+                <div style="height: 8px; background: #e2e8f0; border-radius: 10px;">
+                    <div style="width: ${(pagados/6)*100}%; height: 100%; background: var(--success); border-radius: 10px;"></div>
+                </div>
+            `;
 
             initCalendar(pagos);
         }
@@ -640,13 +1152,12 @@
             const events = [];
             for (let [mesKey, estado] of Object.entries(pagosData)) {
                 const [year, month] = mesKey.split('-');
-                const color = estado === 'pagado' ? '#4f9d69' : '#dc2626';
+                const color = estado === 'pagado' ? '#10b981' : '#ef4444';
                 events.push({
                     title: estado === 'pagado' ? '✓ Pagado' : '⚠️ Pendiente',
                     start: `${year}-${month}-15`,
                     allDay: true,
-                    color: color,
-                    extendedProps: { mes: mesKey, estado }
+                    color: color
                 });
             }
 
@@ -658,12 +1169,6 @@
                     right: 'dayGridMonth' 
                 },
                 events: events,
-                eventClick: function(info) {
-                    const mes = info.event.extendedProps.mes;
-                    const estado = info.event.extendedProps.estado;
-                    const monto = estado === 'pendiente' ? `$${MONTO_MENSUAL} pendiente` : 'Pagado';
-                    alert(`Mes: ${mes}\nEstado: ${estado}\nMonto: ${monto}`);
-                },
                 height: 'auto',
                 locale: 'es'
             });
@@ -683,14 +1188,11 @@
         // INICIALIZACIÓN
         // ============================================
         
-        // Cargar datos al iniciar
         window.addEventListener('load', () => {
             cargarDatosDesdeGoogleSheets();
             populateNiveles();
             populateApartamentos();
-            
-            // Actualizar cada 5 minutos
-            setInterval(cargarDatosDesdeGoogleSheets, 300000);
+            setInterval(cargarDatosDesdeGoogleSheets, 300000); // 5 minutos
         });
 
         // Scroll suave
@@ -698,9 +1200,7 @@
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>
